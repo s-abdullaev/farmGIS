@@ -1,6 +1,6 @@
 ﻿namespace smsapp
 {
-    public class FarmDataModel
+    public class Farm
     {
         /// <summary>
         /// First name of the user (if needed)
@@ -22,22 +22,7 @@
         /// </summary>
         public string ContactNumber{ set; get; }
 
-        /// <summary>
-        /// Location of the user in the map
-        /// </summary>
-        public Location Location { set; get; }
     }
 
-    public class Location
-    {
-        /// <summary>
-        /// Lattitude of the location in the map
-        /// </summary>
-        public float Lattitude { set; get; }
-
-        /// <summary>
-        /// Longitude of the location in the map
-        /// </summary>
-        public float Longitude { set; get; }
-    }
+   
 }

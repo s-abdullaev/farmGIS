@@ -26,12 +26,6 @@
         public int Permissions { set; get; }
 
         /// <summary>
-        /// Права  пользователя  на  отправку  смс-уведомлении
-        /// Can send message to the server
-        /// </summary>
-        public bool CanSendMessage { set; get; }
-
-        /// <summary>
         /// First name of the user (if needed)
         /// </summary>
         public string FirstName { set; get; }

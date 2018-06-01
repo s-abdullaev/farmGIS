@@ -158,7 +158,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Database\DataStore.cs" />
-    <Compile Include="DataModels\FarmDataModel.cs" />
+    <Compile Include="DataModels\AgriculturalProducts.cs" />
+    <Compile Include="DataModels\Farm.cs" />
+    <Compile Include="DataModels\Geoposition.cs" />
+    <Compile Include="DataModels\SoilCondition.cs" />
     <Compile Include="DataModels\UserDataModel.cs" />
     <Compile Include="Interfaces\IDataStore.cs" />
     <Compile Include="MainWindow.xaml.cs">
