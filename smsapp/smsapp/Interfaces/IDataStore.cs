@@ -14,14 +14,14 @@ namespace smsapp
         /// Gets the UserData
         /// </summary>
         /// <returns></returns>
-        Task<UserDataModel> GetUserData();
+        Task<User> GetUserData();
 
         /// <summary>
         /// Adds the user to the Database
         /// </summary>
         /// <param name="dataModel">The user to add</param>
         /// <returns></returns>
-        Task AddUserData(UserDataModel dataModel);
+        Task AddUserData(User dataModel);
         
     }
 }
