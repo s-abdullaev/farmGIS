@@ -23,7 +23,7 @@
         /// <summary>
         /// The right of the user to edit data
         /// </summary>
-        public UserRights UserRights { set; get; }
+        public int Permissions { set; get; }
 
         /// <summary>
         /// Права  пользователя  на  отправку  смс-уведомлении
@@ -45,21 +45,5 @@
         /// Email of the user
         /// </summary>
         public string Email { set; get; }
-    }
-
-    public enum UserRights
-    {
-        /// <summary>
-        /// Данные  о  ФХ  и  их  владельца
-        /// </summary>
-        CanEditFarmData,
-        /// <summary>
-        /// Данные  о  видах  с/х  культур
-        /// </summary>
-        CanEditCultureType,
-        /// <summary>
-        /// Данные  о  вредителях  и  болезнях  с/х  культур
-        /// </summary>
-        CanEditDesease
     }
 }
