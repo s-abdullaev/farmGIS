@@ -1,4 +1,6 @@
-﻿namespace smsapp
+﻿using System;
+
+namespace smsapp
 {
     /// <summary>
     /// Model for the User
@@ -26,18 +28,13 @@
         public int Permissions { set; get; }
 
         /// <summary>
-        /// First name of the user (if needed)
-        /// </summary>
-        public string FirstName { set; get; }
-
-        /// <summary>
-        /// Last name of the user (if needed)
-        /// </summary>
-        public string LastName { set; get; }
-
-        /// <summary>
         /// Email of the user
         /// </summary>
         public string Email { set; get; }
+
+        /// <summary>
+        /// Created date
+        /// </summary>
+        public DateTime CreateDate { set; get; }
     }
 }

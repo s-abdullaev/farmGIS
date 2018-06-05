@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Dna;
+using System.Windows;
 
 namespace smsapp
 {
@@ -10,6 +11,8 @@ namespace smsapp
         public MainWindow()
         {
             InitializeComponent();
+            var db = Framework.Service<IDataStore>();
+            db.EnsureDataStoreAsync();
         }
     }
 }

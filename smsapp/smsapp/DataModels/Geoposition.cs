@@ -3,13 +3,30 @@
     public class Geopostion
     {
         /// <summary>
-        /// Lattitude of the location in the map
+        /// ID
         /// </summary>
-        public float Lattitude { set; get; }
+        public string ID { set; get; }
 
         /// <summary>
-        /// Longitude of the location in the map
+        /// Name
         /// </summary>
-        public float Longitude { set; get; }
+        public string Name { set; get; }
+
+
+        /// <summary>
+        /// Geodata
+        /// </summary>
+        public string GeoData { set; get; }
+
+        /// <summary>
+        /// Notes
+        /// </summary>
+        public string AdditionalNotes { set; get; }
+
+        /// <summary>
+        /// FarmID
+        /// </summary>
+        public string FarmID { set; get; }
+
     }
 }
