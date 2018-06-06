@@ -49,6 +49,24 @@ namespace smsapp
             await mDbContext.Database.EnsureCreatedAsync();
         }
 
+        public async Task AddUserAsync(User user)
+        {
+            mDbContext.Users.Add(user);
+            //Save changes to database
+            await mDbContext.SaveChangesAsync();
+        }
+
+
+        /// <summary>
+        /// Gets all users from local database
+        /// </summary>
+        /// <returns></returns>
+        public ObservableCollection<User> GetUsers()
+        {
+            var obj = new ObservableCollection<User>(mDbContext.Users);
+            return obj;
+        }
+
         #endregion
     }
 }

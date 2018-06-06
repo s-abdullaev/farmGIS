@@ -16,5 +16,20 @@ namespace smsapp
         /// <returns>Returns a task that will finish once setup is complete</returns>
         Task EnsureDataStoreAsync();
 
+
+
+        /// <summary>
+        /// Adds the user to users table int the local datase
+        /// </summary>
+        /// <param name="userToAdd">User to add</param>
+        /// <returns></returns>
+        Task AddUserAsync(User userToAdd);
+
+
+        /// <summary>
+        /// Gets all users from local database
+        /// </summary>
+        /// <returns></returns>
+        ObservableCollection<User> GetUsers();
     }
 }
