@@ -5,7 +5,10 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace smsapp
 {
-    public static class FrameworkExtensionMethods
+    /// <summary>
+    /// Extension methods for the <see cref="FrameworkConstruction"/>
+    /// </summary>
+    public static class FrameworkConstructionExtensions
     {
         /// <summary>
         /// Default constructor

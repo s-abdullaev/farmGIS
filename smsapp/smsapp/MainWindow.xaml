@@ -6,7 +6,12 @@
         xmlns:local="clr-namespace:smsapp"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <WindowChrome.WindowChrome>
+        <WindowChrome 
+                      CaptionHeight="{Binding TitleHeight}"
+                      CornerRadius="0"
+                      GlassFrameThickness="0"/>
+    </WindowChrome.WindowChrome>
     <Grid>
-        
     </Grid>
 </Window>
