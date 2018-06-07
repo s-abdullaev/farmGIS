@@ -40,10 +40,66 @@
                 <TextBox Margin="10 0 0 0" Grid.Row="1" Text="{Binding Password}" Grid.Column="1" ></TextBox>
                 <TextBox Margin="10 0 0 0" Grid.Row="2" Text="{Binding Permission}" Grid.Column="1" ></TextBox>
                 <TextBox Margin="10 0 0 0" Grid.Row="3" Text="{Binding Email}" Grid.Column="1" ></TextBox>
-                <Button Command="{Binding AddUserCommand}" Margin="20 0 0 20" Grid.Row="4" Grid.ColumnSpan="2" Content="Add"></Button>
+                <Button 
+                    Command="{Binding AddUserCommand}" 
+                    Margin="20 0 0 20" 
+                    Grid.Row="4" 
+                    Grid.ColumnSpan="2" 
+                    Content="Add"/>
+                <Button 
+                    Command="{Binding SaveEditsCommand}" 
+                    Margin="20 0 0 20" 
+                    Grid.Row="4" 
+                    Grid.ColumnSpan="2" 
+                    Content="Save"
+                    Visibility="{Binding IsEditing, Converter={local:BooleanToVisibiltyValueConvertor},ConverterParameter=smth}"/>
             </Grid>
             <Grid Grid.Row="1">
-                <ListBox ItemsSource="{Binding Users}"></ListBox>
+                <ListBox ItemsSource="{Binding Users}" HorizontalContentAlignment="Stretch">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border Height="70" >
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                                        <ColumnDefinition Width="4*"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <!--User avatar-->
+                                    <Image Margin="5" Source="./Images/user.png"></Image>
+                                    <!--User info-->
+                                    <Grid Grid.Column="1" Margin="5">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Label FontSize="{StaticResource FontSizeRegular}" Content="{Binding Username}"></Label>
+                                        <Label Grid.Row="1" FontSize="{StaticResource FontSizeSmall}" Opacity="0.7" Content="{Binding Email}"></Label>
+                                    </Grid>
+                                    <Grid Grid.Column="2">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <!--Icon button-->
+                                        <Button 
+                                            Command="{Binding DataContext.EditUserCommand, 
+                                            RelativeSource={RelativeSource Mode=FindAncestor,
+                                            AncestorType=Window}}"
+                                            CommandParameter="{Binding}"
+                                            Content="Edit"/>
+                                        <Button 
+                                            Command="{Binding DataContext.DeleteUserCommand, 
+                                            RelativeSource={RelativeSource Mode=FindAncestor,
+                                            AncestorType=Window}}"
+                                            CommandParameter="{Binding}"
+                                            Grid.Row="1" Content="Delete"/>
+                                    </Grid>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </Grid>
         </Grid>
         <Grid Grid.Column="1">

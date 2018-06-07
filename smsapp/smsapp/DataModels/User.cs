@@ -5,7 +5,7 @@ namespace smsapp
     /// <summary>
     /// Model for the User
     /// </summary>
-    public class User
+    public class User:BaseViewModel
     {
         /// <summary>
         /// Id of the user

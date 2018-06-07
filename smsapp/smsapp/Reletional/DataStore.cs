@@ -67,6 +67,28 @@ namespace smsapp
             return obj;
         }
 
+        /// <summary>
+        /// Delete user
+        /// </summary>
+        /// <param name="userToDelete">User to delete</param>
+        /// <returns></returns>
+        public async Task DeleteUser(User userToDelete)
+        {
+            mDbContext.Users.Remove(userToDelete);
+            await mDbContext.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// Edit user
+        /// </summary>
+        /// <param name="userToDelete">User to edit</param>
+        /// <returns></returns>
+        public async Task EditUser(User userToEdit)
+        {
+            mDbContext.Users.Update(userToEdit);
+            await mDbContext.SaveChangesAsync();
+        }
+
         #endregion
     }
 }

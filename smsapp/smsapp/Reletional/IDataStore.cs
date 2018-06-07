@@ -31,5 +31,19 @@ namespace smsapp
         /// </summary>
         /// <returns></returns>
         ObservableCollection<User> GetUsers();
+
+        /// <summary>
+        /// Delete user
+        /// </summary>
+        /// <param name="userToDelete">User to delete</param>
+        /// <returns></returns>
+        Task DeleteUser(User userToDelete);
+
+        /// <summary>
+        /// Edit user
+        /// </summary>
+        /// <param name="userToDelete">User to edit</param>
+        /// <returns></returns>
+        Task EditUser(User userToEdit);
     }
 }
