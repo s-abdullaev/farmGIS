@@ -2,8 +2,11 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:smsapp"
                     xmlns:system="clr-namespace:System;assembly=mscorlib">
-    <FontFamily x:Key="FontAwesome">pack://application;,,,/Fonts/#FontAwesome</FontFamily>
-
+    <FontFamily x:Key="FontAwesome">pack://application;,,,/Fonts/#Font Awesome 5 Free Regular</FontFamily>
+    <FontFamily x:Key="FontAwesomeSolid">pack://application;,,,/Fonts/#Font Awesome 5 Free Solid</FontFamily>
+    <FontFamily x:Key="BullyFont">pack://application;,,,/Fonts/#The Bully_PersonalUseOnly</FontFamily>
+    <FontFamily x:Key="RobotoMedium">pack://application;,,,/Fonts/#Roboto Medium</FontFamily>
+    <FontFamily x:Key="RobotoThin">pack://application;,,,/Fonts/#Roboto Thin</FontFamily>
 
     <system:Double x:Key="FontSizeRegular">15</system:Double>
     <system:Double x:Key="FontSizeLarge">20</system:Double>

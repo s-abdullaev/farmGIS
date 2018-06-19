@@ -6,6 +6,74 @@
         xmlns:local="clr-namespace:smsapp"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" WindowState="Maximized">
+    <Window.Resources>
+        <Style TargetType="{x:Type local:MainWindow}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Window">
+                        <Border>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <!--Title Bar-->
+                                    <RowDefinition Height="{Binding TitleHeightGridLength,FallbackValue=42}"></RowDefinition>
+                                    <!--Line-->
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <!--Main Window-->
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <!--Title Bar-->
+                                <Border Background="{StaticResource TitleBarBrush}">
+                                    <Grid Grid.Row="0" Panel.ZIndex="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Button Style="{StaticResource SystemIconButton}" Command="{Binding MenuCommand}">
+                                            <Image Source="Images/logo.png"></Image>
+                                        </Button>
+                                        <!--Title-->
+                                        <Viewbox Grid.Column="0" Grid.ColumnSpan="3" Margin="5">
+                                            <StackPanel>
+                                                <TextBlock Text="Name of the project" FontSize="{StaticResource FontSizeLarge}" Margin="0 0 0 -5">
+                                                        
+                                                </TextBlock>
+                                                <TextBlock FontSize="{StaticResource FontSizeSmall}" Text="By OurTeamNameIfNeeded" Foreground="{StaticResource MainTextBrush}" TextAlignment="Center"></TextBlock>
+                                            </StackPanel>
+                                        </Viewbox>
+                                        <!--Window Buttons-->
+                                        <StackPanel Orientation="Horizontal" Grid.Column="2">
+                                            <Button Style="{StaticResource WindowButton}" Content="&#xf2d1;" Command="{Binding MinimizeCommand}">
+                                            </Button>
+                                            <Button Style="{StaticResource WindowButton}" Content="&#xf2d0;" Command="{Binding MaximizeCommand}">
+                                            </Button>
+                                            <Button Style="{StaticResource CloseButton}" Content="&#xf00d;" Command="{Binding CloseCommand}">
+                                            </Button>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                                <!--DropShadow-->
+                                <Border Grid.Row="1" Height="6" BorderThickness="0 1 0 0">
+                                    <!--UnderLine-->
+                                    <Border.BorderBrush>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                            <GradientStop Color="Teal" Offset="0.0" />
+                                            <GradientStop Color="Red" Offset="0.5" />
+                                            <GradientStop Color="Teal" Offset="1.0" />
+                                        </LinearGradientBrush>
+                                    </Border.BorderBrush>
+                                </Border>
+                                <!--Main content-->
+                                <Border Grid.Row="2">
+                                    <ContentPresenter Content="{TemplateBinding Content}"></ContentPresenter>
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <WindowChrome.WindowChrome>
         <WindowChrome CornerRadius="0"
                       GlassFrameThickness="0"/>
@@ -16,45 +84,7 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="200"></RowDefinition>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
-                <Label Margin="10 0 0 0" Grid.Row="0" Content="Username"></Label>
-                <Label Margin="10 0 0 0" Grid.Row="1" Content="Password"></Label>
-                <Label Margin="10 0 0 0" Grid.Row="2" Content="Permission"></Label>
-                <Label Margin="10 0 0 0" Grid.Row="3" Content="Email"></Label>
-                <TextBox Margin="10 0 0 0" Grid.Row="0" Text="{Binding Username}" Grid.Column="1" ></TextBox>
-                <TextBox Margin="10 0 0 0" Grid.Row="1" Text="{Binding Password}" Grid.Column="1" ></TextBox>
-                <TextBox Margin="10 0 0 0" Grid.Row="2" Text="{Binding Permission}" Grid.Column="1" ></TextBox>
-                <TextBox Margin="10 0 0 0" Grid.Row="3" Text="{Binding Email}" Grid.Column="1" ></TextBox>
-                <Button 
-                    Command="{Binding AddUserCommand}" 
-                    Margin="20 0 0 20" 
-                    Grid.Row="4" 
-                    Grid.ColumnSpan="2" 
-                    Content="Add"/>
-                <Button 
-                    Command="{Binding SaveEditsCommand}" 
-                    Margin="20 0 0 20" 
-                    Grid.Row="4" 
-                    Grid.ColumnSpan="2" 
-                    Content="Save"
-                    Visibility="{Binding IsEditing, Converter={local:BooleanToVisibiltyValueConvertor},ConverterParameter=smth}"/>
-            </Grid>
-            <Grid Grid.Row="1">
+            <Grid>
                 <ListBox ItemsSource="{Binding Users}" HorizontalContentAlignment="Stretch">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -66,7 +96,7 @@
                                         <ColumnDefinition Width="*"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
                                     <!--User avatar-->
-                                    <Image Margin="5" Source="./Images/user.png"></Image>
+                                    <Image Margin="5" Source="./Images/man.png"></Image>
                                     <!--User info-->
                                     <Grid Grid.Column="1" Margin="5">
                                         <Grid.RowDefinitions>
@@ -83,23 +113,44 @@
                                         </Grid.RowDefinitions>
                                         <!--Icon button-->
                                         <Button 
+                                            Style="{StaticResource CircleButton}"
                                             Command="{Binding DataContext.EditUserCommand, 
                                             RelativeSource={RelativeSource Mode=FindAncestor,
                                             AncestorType=Window}}"
                                             CommandParameter="{Binding}"
-                                            Content="Edit"/>
+                                            Content="&#xf303;"/>
                                         <Button 
+                                            Style="{StaticResource CircleButton}"
                                             Command="{Binding DataContext.DeleteUserCommand, 
                                             RelativeSource={RelativeSource Mode=FindAncestor,
                                             AncestorType=Window}}"
                                             CommandParameter="{Binding}"
-                                            Grid.Row="1" Content="Delete"/>
+                                            Grid.Row="1" 
+                                            Content="&#xf2ed;"/>
                                     </Grid>
                                 </Grid>
                             </Border>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Button 
+                        Margin="20"
+                        Command="{Binding AddUserCommand}" 
+                        FontSize="50" 
+                        Style="{StaticResource CircleButton}" 
+                        Grid.Column="1" 
+                        Grid.Row="1" 
+                        Panel.ZIndex="1">+</Button>
+                </Grid>
             </Grid>
         </Grid>
         <Grid Grid.Column="1">
@@ -108,5 +159,11 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
         </Grid>
+        <local:UserController Grid.ColumnSpan="2"
+                              DataContext="{Binding UserControllerViewModel}"
+                              Panel.ZIndex="9"
+                              local:AnimateSlideInFromBottomMarginProperty.Value="{Binding DataContext.IsUserControllerVisible,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Window}}"
+                              />
+        <!--local:AnimateSlideInFromBottomMarginProperty.Value="{Binding IsUserControllerVisible}"-->
     </Grid>
 </Window>

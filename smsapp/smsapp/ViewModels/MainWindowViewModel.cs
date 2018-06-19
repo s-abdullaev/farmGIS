@@ -1,45 +1,141 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 
 namespace smsapp
 {
     public class MainWindowViewModel : BaseViewModel
     {
+
+        #region Private members
+        private Window mWindow;
+        private bool mUserControllerVisible;
+        /// <summary>
+        /// Margin around the window to allow dropshadow
+        /// </summary>
+        private int mOuterMarginSize = 10;
+
+        /// <summary>
+        /// Window radius
+        /// </summary>
+        private int mWindowRadius = 10;
+
+        private User mCurrentUser;
+        #endregion
+
         #region Public properties
 
         /// <summary>
-        /// These should be copied to user control
+        /// Flag for indicating whether user controller is visible or not
         /// </summary>
-        public string Username { set; get; }
-        public string Password { set; get; }
-        public string Email { set; get; }
-        public string Permission { set; get; }
-        public bool IsEditing { set; get; } = false;
-        private User mCurrentUser;
+        public bool IsUserControllerVisible
+        {
+            set
+            {
+                if (!value)
+                    Users = IoC.Database.GetUsers();
+                mUserControllerVisible = value;
+            }
+            get
+            {
+                return mUserControllerVisible;
+            }
+        }
+
+        public UserControllerViewModel UserControllerViewModel
+        {
+            set;
+            get;
+        }
+
         /// <summary>
         /// The users list
         /// </summary>
         public ObservableCollection<User> Users { set; get; }
+
+        public static MainWindowViewModel Instance { set; get; }
+
+        #region Design Properties
+        /// <summary>
+        /// Smallest heigjht
+        /// </summary>
+        public double WindowMinimumHeight { get; set; }
+
+        /// <summary>
+        /// Smallest heigjht
+        /// </summary>
+        public double WindowMinimumWidth { get; set; }
+
+        /// <summary>
+        /// The size of the Resize border
+        /// </summary>
+        public int ResizeBorder { get { return Borderless ? 0 : 6; } set { } }
+
+        /// <summary>
+        /// Thickness of resize border
+        /// </summary>
+        public Thickness ResizeBorderThickness { get { return new Thickness(ResizeBorder + OuterMarginSize); } }
+
+        /// <summary>
+        /// Inner padding of main content
+        /// </summary>
+        public int MainWindowInnerPadding { get; set; }
+
+        /// <summary>
+        /// Inner padding of main content
+        /// </summary>
+        public Thickness MainContentInnerPaddingThickness { get { return new Thickness(MainWindowInnerPadding); } }
+
+        /// <summary>
+        /// Margin around window to allow dropshadow
+        /// </summary>
+        public int OuterMarginSize
+        {
+            get
+            {
+                return mWindow.WindowState == WindowState.Maximized ? 0 : mOuterMarginSize;
+            }
+            set { OuterMarginSize = value; }
+        }
+
+        /// <summary>
+        /// Margin around window to allow dropshadow
+        /// </summary>
+        public Thickness OuterMarginThickness { get { return new Thickness(OuterMarginSize); } }
+
+        /// <summary>
+        /// Height of the region that can drag the form
+        /// </summary>
+        public int TitleHeight { set; get; }
+
+        /// <summary>
+        /// Title height grid length of Title
+        /// </summary>
+        public GridLength TitleHeightGridLength { get { return new GridLength(TitleHeight + ResizeBorder); } }
+
+        /// <summary>
+        /// Represents that if the window maximized it should be borderless
+        /// </summary>
+        public bool Borderless { get { return (mWindow.WindowState == WindowState.Maximized); } set { } }
         #endregion
+
+        #endregion
+
         #region Default constructor
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(Window mWindow)
         {
-            Users = IoC.Database.GetUsers();
+            #region Initialize commands
 
-            AddUserCommand = new RelayCommand(async () =>
+
+            MinimizeCommand = new RelayCommand(() => mWindow.WindowState = WindowState.Minimized);
+            MaximizeCommand = new RelayCommand(() => mWindow.WindowState ^= WindowState.Maximized);
+            CloseCommand = new RelayCommand(() => mWindow.Close());
+            EditUserCommand = new RelayParametrisedCommand((parameter) =>
             {
-                await IoC.Database.AddUserAsync(new User
-                {
-                    ID = Guid.NewGuid().ToString(),
-                    Username = this.Username,
-                    Password = this.Password,
-                    Email = this.Email,
-                    Permissions = int.Parse(this.Permission),
-                    CreateDate = DateTime.Now
-                });
-                Users = IoC.Database.GetUsers();
+                IsUserControllerVisible = !IsUserControllerVisible;
+                UserControllerViewModel = new UserControllerViewModel(parameter as User);
             });
 
             DeleteUserCommand = new RelayParametrisedCommand(async (parameter) =>
@@ -48,55 +144,70 @@ namespace smsapp
                 Users = IoC.Database.GetUsers();
             });
 
-            EditUserCommand = new RelayParametrisedCommand((parameter)=>
+            AddUserCommand = new RelayCommand(() =>
             {
-                //TODO: Use some better approach :)
-                var user = parameter as User;
-                this.Username = user.Username;
-                this.Password = user.Password;
-                this.Permission = user.Permissions.ToString();
-                this.Email = user.Email;
-                mCurrentUser = user;
-                IsEditing = true;
+                UserControllerViewModel = new UserControllerViewModel();
+                IsUserControllerVisible = !IsUserControllerVisible;
             });
 
-            SaveEditsCommand = new RelayCommand(async () =>
-            {
-                if (mCurrentUser == null)
-                    return;
-                //TODO: Use some better approach :)
-                mCurrentUser.Email = this.Email;
-                mCurrentUser.Password = this.Password;
-                mCurrentUser.Permissions = int.Parse(this.Permission);
-                mCurrentUser.Username = this.Username;
-                await IoC.Database.EditUser(mCurrentUser);
-                // Return everything to initial state
-                IsEditing = false;
-                mCurrentUser = null;
-                Users = IoC.Database.GetUsers();
-            });
+            #endregion
 
+            mWindow.StateChanged += (sender, e) =>
+            {
+                OnPropertyChanged(("ResizeBorder"));
+                OnPropertyChanged(("ResizeBorderThickness"));
+                OnPropertyChanged(("OuterMarginSize"));
+                OnPropertyChanged(("OuterMarginThickness"));
+                OnPropertyChanged(("WindowRadius"));
+                OnPropertyChanged(("WindowCornerRadius"));
+            };
+
+            WindowMinimumWidth = 800;
+            TitleHeight = 42;
+            MainWindowInnerPadding = 0;
+            WindowMinimumHeight = 400;
+
+            Users = IoC.Database.GetUsers();
+            IsUserControllerVisible = false;
+
+
+            Instance = this;
+            UserControllerViewModel = null;
         }
         #endregion
+
         #region Commands
 
         /// <summary>
-        /// Adds the user
+        /// Command for minimizing the window
         /// </summary>
-        public ICommand AddUserCommand { set; get; }
+        public ICommand MinimizeCommand { get; set; }
+
+        /// <summary>
+        /// Command for Maximizing window
+        /// </summary>
+        public ICommand MaximizeCommand { get; set; }
+
+        /// <summary>
+        /// Commnad for exiting from the application
+        /// </summary>
+        public ICommand CloseCommand { get; set; }
+
+
+        /// <summary>
+        /// Command for opening edit user view/controller to edit the user
+        /// </summary>
+        public ICommand EditUserCommand { get; set; }
+
+        /// <summary>
+        /// Command for opening edit user view/controller to add the user
+        /// </summary>
+        public ICommand AddUserCommand { get; set; }
 
         /// <summary>
         /// Command to delete the user
         /// </summary>
         public ICommand DeleteUserCommand { set; get; }
-
-        /// <summary>
-        /// The command to edit the user
-        /// </summary>
-        public ICommand EditUserCommand { set; get; }
-
-        public ICommand SaveEditsCommand { set; get; }
-
         #endregion
 
     }

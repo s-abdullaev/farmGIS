@@ -3,11 +3,10 @@
 namespace smsapp
 {
     /// <summary>
-    /// Inversion of Control for storing services and easy acesssing to them
+    /// Inversion of Control for storing services/vm and easy acesssing to them
     /// </summary>
     public class IoC
     {
-
         /// <summary>
         /// Database
         /// </summary>
