@@ -196,6 +196,42 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Animation\AnimationSlideInDirection.cs" />
+    <Compile Include="Animation\FrameworkElementAnimation.cs" />
+    <Compile Include="AttachedProperties\FrameworkElementAttachedProperties.cs" />
+    <Compile Include="AttachedProperties\BaseAttachedProperty.cs" />
+    <Compile Include="AttachedProperties\PanelChildMarginproperty.cs" />
+    <Compile Include="AttachedProperties\PasswordBoxAttachedProperties.cs" />
+    <Compile Include="Controls\SoilReadingsController.xaml.cs">
+      <DependentUpon>SoilReadingsController.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PestController.xaml.cs">
+      <DependentUpon>PestController.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\GeopositionController.xaml.cs">
+      <DependentUpon>GeopositionController.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DiseaseController.xaml.cs">
+      <DependentUpon>DiseaseController.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ContagionController.xaml.cs">
+      <DependentUpon>ContagionController.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PlantsController.xaml.cs">
+      <DependentUpon>PlantsController.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Popup.xaml.cs">
+      <DependentUpon>Popup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\FarmOwnerController.xaml.cs">
+      <DependentUpon>FarmOwnerController.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\FarmController.xaml.cs">
+      <DependentUpon>FarmController.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\UserController.xaml.cs">
+      <DependentUpon>UserController.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Database\Database.cs" />
     <Compile Include="DataModels\Broadcast.cs" />
     <Compile Include="DataModels\Contagion.cs" />
@@ -206,20 +242,74 @@
     <Compile Include="DataModels\Geoposition.cs" />
     <Compile Include="DataModels\Message.cs" />
     <Compile Include="DataModels\Pest.cs" />
+    <Compile Include="DataModels\Photo.cs" />
     <Compile Include="DataModels\Plant.cs" />
     <Compile Include="DataModels\SoilReadings.cs" />
     <Compile Include="DataModels\User.cs" />
+    <Compile Include="DataTypes\PopupType.cs" />
+    <Compile Include="Extensions\StoryboardHelpers.cs" />
     <Compile Include="IoC\IoC.cs" />
-    <Compile Include="Reletional\ClientDataStoreDbContext.cs" />
+    <Compile Include="Reletional\ApplicationDbContext.cs" />
     <Compile Include="Extensions\FrameworkConstructionExtensions.cs" />
     <Compile Include="Reletional\DataStore.cs" />
     <Compile Include="Reletional\IDataStore.cs" />
     <Compile Include="ValueConverters\BaseValueConverter.cs" />
     <Compile Include="ValueConverters\BooleanToVisibilityConverter.cs" />
-    <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ValueConverters\PopupTypeToBrushValueConvertor.cs" />
+    <Compile Include="ViewModels\Base\BaseViewModel.cs" />
+    <Compile Include="ViewModels\Forms\ContagionControllerViewModel.cs" />
+    <Compile Include="ViewModels\Forms\SoilReadingControllerViewModel.cs" />
+    <Compile Include="ViewModels\Forms\GeopositionControllerViewModel.cs" />
+    <Compile Include="ViewModels\Forms\PestControllerViewModel.cs" />
+    <Compile Include="ViewModels\Forms\DiseaseControllerViewModel.cs" />
+    <Compile Include="ViewModels\Forms\PlantsControllerViewModel.cs" />
+    <Compile Include="ViewModels\Forms\FarmControllerViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
-    <Compile Include="ViewModels\RelayCommand.cs" />
-    <Compile Include="ViewModels\RelayParametrizedCommand.cs" />
+    <Compile Include="ViewModels\PopupViewModel.cs" />
+    <Compile Include="ViewModels\Base\RelayCommand.cs" />
+    <Compile Include="ViewModels\Base\RelayParametrizedCommand.cs" />
+    <Compile Include="ViewModels\Forms\FarmOwnerViewModel.cs" />
+    <Compile Include="ViewModels\Forms\UserControllerViewModel.cs" />
+    <Page Include="Controls\SoilReadingsController.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\PestController.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\GeopositionController.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\DiseaseController.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\ContagionController.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\PlantsController.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Popup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\FarmOwnerController.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\FarmController.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\UserController.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -236,7 +326,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Styles\Colors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\Fonts.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Texts.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -259,7 +357,24 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Resource Include="Fonts\Font Awesome 5 Free-Solid-900.otf" />
     <Resource Include="Fonts\FontAwesome.otf" />
+    <Resource Include="Fonts\Font Awesome 5 Free-Regular-400.otf" />
+    <Resource Include="Fonts\Font Awesome 5 Brands-Regular-400.otf" />
+    <Resource Include="Fonts\Roboto-Black.ttf" />
+    <Resource Include="Fonts\Roboto-BlackItalic.ttf" />
+    <Resource Include="Fonts\Roboto-Bold.ttf" />
+    <Resource Include="Fonts\Roboto-BoldItalic.ttf" />
+    <Resource Include="Fonts\Roboto-Italic.ttf" />
+    <Resource Include="Fonts\Roboto-Light.ttf" />
+    <Resource Include="Fonts\Roboto-LightItalic.ttf" />
+    <Resource Include="Fonts\Roboto-Medium.ttf" />
+    <Resource Include="Fonts\Roboto-MediumItalic.ttf" />
+    <Resource Include="Fonts\Roboto-Regular.ttf" />
+    <Resource Include="Fonts\Roboto-Thin.ttf" />
+    <Resource Include="Fonts\Roboto-ThinItalic.ttf" />
+    <Resource Include="Fonts\TheBully.ttf" />
+    <Resource Include="Fonts\Tajawal-Medium.ttf" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -273,7 +388,7 @@
     <Resource Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controls\" />
+    <Resource Include="Images\email.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
@@ -289,6 +404,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\user.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\man.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.3.0.3\build\Fody.targets" Condition="Exists('..\packages\Fody.3.0.3\build\Fody.targets')" />

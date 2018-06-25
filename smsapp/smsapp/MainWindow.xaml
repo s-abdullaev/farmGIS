@@ -6,107 +6,150 @@
         xmlns:local="clr-namespace:smsapp"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" WindowState="Maximized">
+    <Window.Resources>
+        <Style TargetType="{x:Type local:MainWindow}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Window">
+                        <Border>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <!--Title Bar-->
+                                    <RowDefinition Height="{Binding TitleHeightGridLength,FallbackValue=42}"></RowDefinition>
+                                    <!--Line-->
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <!--Main Window-->
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <!--Title Bar-->
+                                <Border Background="{StaticResource TitleBarBrush}">
+                                    <Grid Grid.Row="0" Panel.ZIndex="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Button Style="{StaticResource SystemIconButton}" Command="{Binding MenuCommand}">
+                                            <Image Source="Images/logo.png"></Image>
+                                        </Button>
+                                        <!--Title-->
+                                        <Viewbox Grid.Column="0" Grid.ColumnSpan="3" Margin="5">
+                                            <StackPanel>
+                                                <TextBlock Text="Name of the project" FontSize="{StaticResource FontSizeLarge}" Margin="0 0 0 -5">
+
+                                                </TextBlock>
+                                                <TextBlock FontSize="{StaticResource FontSizeSmall}" Text="By OurTeamNameIfNeeded" Foreground="{StaticResource MainTextBrush}" TextAlignment="Center"></TextBlock>
+                                            </StackPanel>
+                                        </Viewbox>
+                                        <!--Window Buttons-->
+                                        <StackPanel Orientation="Horizontal" Grid.Column="2">
+                                            <Button Style="{StaticResource WindowButton}" Content="&#xf2d1;" Command="{Binding MinimizeCommand}">
+                                            </Button>
+                                            <Button Style="{StaticResource WindowButton}" Content="&#xf2d0;" Command="{Binding MaximizeCommand}">
+                                            </Button>
+                                            <Button Style="{StaticResource CloseButton}" Content="&#xf00d;" Command="{Binding CloseCommand}">
+                                            </Button>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                                <!--DropShadow-->
+                                <Border Grid.Row="1" Height="6" BorderThickness="0 1 0 0">
+                                    <!--UnderLine-->
+                                    <Border.BorderBrush>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                            <GradientStop Color="Teal" Offset="0.0" />
+                                            <GradientStop Color="Red" Offset="0.5" />
+                                            <GradientStop Color="Teal" Offset="1.0" />
+                                        </LinearGradientBrush>
+                                    </Border.BorderBrush>
+                                </Border>
+                                <!--Main content-->
+                                <Border Grid.Row="2">
+                                    <ContentPresenter Content="{TemplateBinding Content}"></ContentPresenter>
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <WindowChrome.WindowChrome>
         <WindowChrome CornerRadius="0"
                       GlassFrameThickness="0"/>
     </WindowChrome.WindowChrome>
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="200"></RowDefinition>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
-                <Label Margin="10 0 0 0" Grid.Row="0" Content="Username"></Label>
-                <Label Margin="10 0 0 0" Grid.Row="1" Content="Password"></Label>
-                <Label Margin="10 0 0 0" Grid.Row="2" Content="Permission"></Label>
-                <Label Margin="10 0 0 0" Grid.Row="3" Content="Email"></Label>
-                <TextBox Margin="10 0 0 0" Grid.Row="0" Text="{Binding Username}" Grid.Column="1" ></TextBox>
-                <TextBox Margin="10 0 0 0" Grid.Row="1" Text="{Binding Password}" Grid.Column="1" ></TextBox>
-                <TextBox Margin="10 0 0 0" Grid.Row="2" Text="{Binding Permission}" Grid.Column="1" ></TextBox>
-                <TextBox Margin="10 0 0 0" Grid.Row="3" Text="{Binding Email}" Grid.Column="1" ></TextBox>
-                <Button 
-                    Command="{Binding AddUserCommand}" 
-                    Margin="20 0 0 20" 
-                    Grid.Row="4" 
-                    Grid.ColumnSpan="2" 
-                    Content="Add"/>
-                <Button 
-                    Command="{Binding SaveEditsCommand}" 
-                    Margin="20 0 0 20" 
-                    Grid.Row="4" 
-                    Grid.ColumnSpan="2" 
-                    Content="Save"
-                    Visibility="{Binding IsEditing, Converter={local:BooleanToVisibiltyValueConvertor},ConverterParameter=smth}"/>
-            </Grid>
-            <Grid Grid.Row="1">
-                <ListBox ItemsSource="{Binding Users}" HorizontalContentAlignment="Stretch">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Border Height="70" >
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="2*"></ColumnDefinition>
-                                        <ColumnDefinition Width="4*"></ColumnDefinition>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
-                                    </Grid.ColumnDefinitions>
-                                    <!--User avatar-->
-                                    <Image Margin="5" Source="./Images/user.png"></Image>
-                                    <!--User info-->
-                                    <Grid Grid.Column="1" Margin="5">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition></RowDefinition>
-                                            <RowDefinition></RowDefinition>
-                                        </Grid.RowDefinitions>
-                                        <Label FontSize="{StaticResource FontSizeRegular}" Content="{Binding Username}"></Label>
-                                        <Label Grid.Row="1" FontSize="{StaticResource FontSizeSmall}" Opacity="0.7" Content="{Binding Email}"></Label>
-                                    </Grid>
-                                    <Grid Grid.Column="2">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition></RowDefinition>
-                                            <RowDefinition></RowDefinition>
-                                        </Grid.RowDefinitions>
-                                        <!--Icon button-->
-                                        <Button 
-                                            Command="{Binding DataContext.EditUserCommand, 
-                                            RelativeSource={RelativeSource Mode=FindAncestor,
-                                            AncestorType=Window}}"
-                                            CommandParameter="{Binding}"
-                                            Content="Edit"/>
-                                        <Button 
-                                            Command="{Binding DataContext.DeleteUserCommand, 
-                                            RelativeSource={RelativeSource Mode=FindAncestor,
-                                            AncestorType=Window}}"
-                                            CommandParameter="{Binding}"
-                                            Grid.Row="1" Content="Delete"/>
-                                    </Grid>
-                                </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </Grid>
-        </Grid>
-        <Grid Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <DockPanel>
+            <Menu DockPanel.Dock="Top" Height="20">
+                <MenuItem Header="_Data">
+                    <MenuItem Header="Add user" Command="{Binding AddUserCommand}"></MenuItem>
+                    <MenuItem Header="Add farm owner" Command="{Binding AddFarmOwnerCommand}"></MenuItem>
+                    <MenuItem Header="Add farm" Command="{Binding AddFarmCommand}"></MenuItem>
+                    <MenuItem Header="Add plant" Command="{Binding AddPlantCommand}"></MenuItem>
+                    <MenuItem Header="Add diease" Command="{Binding AddDiseaseCommand}"></MenuItem>
+                    <MenuItem Header="Add pest" Command="{Binding AddPestCommand}"></MenuItem>
+                    <MenuItem Header="Add geoposiotion" Command="{Binding AddFarmCommand}"></MenuItem>
+                    <MenuItem Header="Add soul reading" Command="{Binding AddSoilReadingsCommand}"></MenuItem>
+                    <MenuItem Header="Add contagion" Command="{Binding AddContagionCommand}"></MenuItem>
+                </MenuItem>
+            </Menu>
+        </DockPanel>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <local:UserController Grid.ColumnSpan="2"
+                              DataContext="{Binding UserControllerViewModel}"
+                              Panel.ZIndex="9"
+                              local:AnimateSlideInFromBottomMarginProperty.Value="{Binding DataContext.IsUserControllerVisible,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Window}}"
+                              />
+            <local:FarmOwnerController Grid.ColumnSpan="2"
+                              DataContext="{Binding FarmOwnerControllerViewModel}"
+                              Panel.ZIndex="9"
+                              local:AnimateSlideInFromBottomMarginProperty.Value="{Binding DataContext.IsFarmOwnerControllerVisible,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Window}}"
+                              />
+            <local:FarmController Grid.ColumnSpan="2"
+                              DataContext="{Binding FarmControllerViewModel}"
+                              Panel.ZIndex="9"
+                              local:AnimateSlideInFromBottomMarginProperty.Value="{Binding DataContext.IsFarmControllerVisible,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Window}}"
+                              />
+            <local:PlantsController Grid.ColumnSpan="2"
+                                    DataContext="{Binding PlantControllerViewModel}"
+                                    Panel.ZIndex="9"
+                                    local:AnimateSlideInFromBottomMarginProperty.Value="{Binding DataContext.IsPlantControllerVisible,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Window}}"
+                />
+            <local:ContagionController Grid.ColumnSpan="2"
+                                    DataContext="{Binding ContagionControllerViewModel}"
+                                    Panel.ZIndex="9"
+                                    local:AnimateSlideInFromBottomMarginProperty.Value="{Binding DataContext.IsContagionControllerVisible,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Window}}"
+                />
+            <local:DiseaseController Grid.ColumnSpan="2"
+                                    DataContext="{Binding DiseaseControllerViewModel}"
+                                    Panel.ZIndex="9"
+                                    local:AnimateSlideInFromBottomMarginProperty.Value="{Binding DataContext.IsDiseaseControllerVisible,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Window}}"
+                />
+            <local:GeopositionController Grid.ColumnSpan="2"
+                                    DataContext="{Binding GeopositionControllerViewModel}"
+                                    Panel.ZIndex="9"
+                                    local:AnimateSlideInFromBottomMarginProperty.Value="{Binding DataContext.IsGeopositionControllerVisible,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Window}}"
+                />
+            <local:PestController Grid.ColumnSpan="2"
+                                    DataContext="{Binding PestControllerViewModel}"
+                                    Panel.ZIndex="9"
+                                    local:AnimateSlideInFromBottomMarginProperty.Value="{Binding DataContext.IsPestControllerVisible,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Window}}"
+                />
+            <local:SoilReadingsController Grid.ColumnSpan="2"
+                                    DataContext="{Binding SoilReadingsControllerViewModel}"
+                                    Panel.ZIndex="9"
+                                    local:AnimateSlideInFromBottomMarginProperty.Value="{Binding DataContext.IsSoilReadingsControllerVisible,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Window}}"
+                />
+            
         </Grid>
     </Grid>
+
 </Window>

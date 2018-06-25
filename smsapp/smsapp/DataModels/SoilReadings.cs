@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace smsapp.DataModels
+namespace smsapp
 {
-    class SoilReadings
+    public class SoilReadings
     {
 
         /// <summary>
@@ -19,6 +19,11 @@ namespace smsapp.DataModels
         /// Humus level
         /// </summary>
         public int HumusLevel { set; get; }
+
+        /// <summary>
+        /// Nitrate level
+        /// </summary>
+        public int NitrateLevel { set; get; }
 
         /// <summary>
         /// Pottasium level
@@ -45,6 +50,9 @@ namespace smsapp.DataModels
         /// </summary>
         public string AdditionalNotes { set; get; }
 
+        /// <summary>
+        /// Geoposition id
+        /// </summary>
         public string GeoPositionID { set; get; }
 
     }
