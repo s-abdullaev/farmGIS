@@ -2,7 +2,7 @@
 
 namespace smsapp
 {
-    public class FarmOwner
+    public class FarmOwner:BaseViewModel
     {
         /// <summary>
         /// ID

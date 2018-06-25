@@ -65,9 +65,14 @@ namespace smsapp
         public string Diagnostic { set; get; }
 
         /// <summary>
-        /// Treatment
+        /// ChemicalTreatment
         /// </summary>
-        public string Treatment { set; get; }
+        public string ChemicalTreatment { set; get; }
+
+        /// <summary>
+        /// NonChemicalTreatment
+        /// </summary>
+        public string NonChemicalTreatment { set; get; }
 
         /// <summary>
         /// Prognosis

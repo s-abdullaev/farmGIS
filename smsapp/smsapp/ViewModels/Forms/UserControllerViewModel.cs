@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -9,8 +10,17 @@ namespace smsapp
     /// </summary>
     public class UserControllerViewModel : BaseViewModel
     {
-        private bool mIsEditing;
+        #region Private members
         private User mCurrentUser;
+        private bool mIsPopupVisible;
+
+
+        /// <summary>
+        /// The users list
+        /// </summary>
+        public ObservableCollection<User> Users { set; get; }
+
+        #endregion
 
         /// <summary>
         /// User permissions
@@ -20,7 +30,7 @@ namespace smsapp
         /// <summary>
         /// Usernmae
         /// </summary>
-        public string Username { set; get; } 
+        public string Username { set; get; }
         /// <summary>
         /// Password
         /// </summary>
@@ -34,36 +44,65 @@ namespace smsapp
         /// </summary>
         public bool IsEditing
         {
+
+            get => mCurrentUser != null;
+        }
+
+        /// <summary>
+        /// Permissions
+        /// </summary>
+        public bool CanAddUsers
+        {
             set
             {
-
+                if (value)
+                    Permission += 1;
+                else
+                    Permission -= 1;
             }
             get
             {
-                return mCurrentUser != null;
+                var temp = Convert.ToString(Permission, 2);
+                if (temp.Length <= 1)
+                    return false;
+                return temp[1] == '1';
             }
         }
         /// <summary>
         /// Permissions
         /// </summary>
-        public bool CanDodo { set; get; }
-        /// <summary>
-        /// Permissions
-        /// </summary>
-        public bool CanDo { set; get; }
-        /// <summary>
-        /// Permissions
-        /// </summary>
-        public bool CanRemove { set; get; }
-        /// <summary>
-        /// Permissions
-        /// </summary>
-        public bool CanEdit { set; get; }
+        public bool CanAddEntities
+        {
+            set
+            {
+                //NOTE: The value of CanAddEntities is 2
+                if (value)
+                    Permission += 2;
+                else
+                    Permission -= 2;
+            }
+            get
+            {
+                var temp = Convert.ToString(Permission, 2);
+                if (temp.Length <= 0)
+                    return false;
+                return temp[0] == '1';
+            }
+        }
 
         /// <summary>
         /// Flag indicating whether the popup should be shown or not
         /// </summary>
-        public bool IsPopupVisible { set; get; } = false;
+        public bool IsPopupVisible
+        {
+            set
+            {
+                if (!value)
+                    Users = IoC.Database.GetUsers();
+                mIsPopupVisible = value;
+            }
+            get => mIsPopupVisible;
+        }
 
         /// <summary>
         /// Type of the popup
@@ -125,6 +164,7 @@ namespace smsapp
         private void Initialize()
         {
             PopupContent = new PopupViewModel();
+            Users = IoC.Database.GetUsers();
             AddUserCommand = new RelayCommand(async () =>
             {
                 IsPopupVisible = true;

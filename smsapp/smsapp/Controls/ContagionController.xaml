@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="smsapp.UserController"
+﻿<UserControl x:Class="smsapp.ContagionController"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -36,7 +36,7 @@
                          Foreground="{StaticResource ActiveControlBrush}"></Run>
                     <Run FontFamily="{StaticResource RobotoMedium}"
                          Foreground="Black"
-                         Text="Add user"></Run>
+                         Text="Add Contagion"></Run>
                 </TextBlock>
 
                 <TextBlock 
@@ -50,7 +50,7 @@
                          Foreground="{StaticResource ActiveControlBrush}"></Run>
                     <Run FontFamily="{StaticResource RobotoMedium}"
                          Foreground="Black"
-                         Text="Edit user"></Run>
+                         Text="Edit Contagion"></Run>
                 </TextBlock>
 
             </Grid>
@@ -71,7 +71,7 @@
                         <Grid>
                             <TextBox Tag="Search ..."></TextBox>
                         </Grid>
-                        <DataGrid Grid.Row="1" ItemsSource="{Binding Users}"></DataGrid>
+                        <DataGrid Grid.Row="1" ItemsSource="{Binding Contagions}"></DataGrid>
                         <!--<Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"></RowDefinition>
@@ -94,7 +94,8 @@
                 </Grid>
                 <!--Details-->
                 <Grid Grid.Column="1"
-                      local:PanelChildMarginproperty.Value="15 8">
+                      local:PanelChildMarginproperty.Value="15 8"
+                      DataContext="{Binding CurrentContagion}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
@@ -106,40 +107,38 @@
                         <RowDefinition Height="auto"></RowDefinition>
                         <RowDefinition Height="auto"></RowDefinition>
                         <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Label VerticalAlignment="Center" FontFamily="{StaticResource RobotoMedium}" Grid.Row="0" Content="Username"></Label>
-                    <Label VerticalAlignment="Center" FontFamily="{StaticResource RobotoMedium}" Grid.Row="1" Content="Password"></Label>
-                    <Label VerticalAlignment="Center" FontFamily="{StaticResource RobotoMedium}" Grid.Row="2" Content="Email"></Label>
-                    <Label Margin="0 10 0 0" VerticalAlignment="Center" FontFamily="{StaticResource RobotoMedium}" Grid.Row="3" Content="Permission"></Label>
-                    <TextBox Grid.Row="0" Tag="Username" Text="{Binding Username, Mode=TwoWay}" Grid.Column="1" ></TextBox>
-                    <TextBox Grid.Row="1" Tag="********" Text="{Binding Password, Mode=TwoWay}" Grid.Column="1" ></TextBox>
-                    <TextBox Grid.Row="2" Tag="example@example.com" Text="{Binding Email, Mode=TwoWay}" Grid.Column="1" ></TextBox>
-                    <Grid Margin="10 15 0 0" Grid.Row="3" Grid.Column="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <CheckBox Grid.Column="0" Content="Can add user" IsChecked="{Binding CanAddUsers, Mode=TwoWay}"></CheckBox>
-                        <CheckBox Grid.Column="1" Content="Can add entities" IsChecked="{Binding CanAddEntities, Mode=TwoWay}"></CheckBox>
-                    </Grid>
-                    <Grid Grid.Row="4" Grid.ColumnSpan="2" Margin="0 20 15 0">
+                    <Label VerticalAlignment="Center" FontFamily="{StaticResource RobotoMedium}" Grid.Row="0" Content="DamageInMoney"></Label>
+                    <Label VerticalAlignment="Center" FontFamily="{StaticResource RobotoMedium}" Grid.Row="1" Content="DamageInCropVolume"></Label>
+                    <Label VerticalAlignment="Center" FontFamily="{StaticResource RobotoMedium}" Grid.Row="2" Content="DamageInPercentage"></Label>
+                    <Label VerticalAlignment="Center" FontFamily="{StaticResource RobotoMedium}" Grid.Row="3" Content="AdditionalNotes"></Label>
+                    <Label VerticalAlignment="Center" FontFamily="{StaticResource RobotoMedium}" Grid.Row="4" Content="CreateTime"></Label>
+                    <Label VerticalAlignment="Center" FontFamily="{StaticResource RobotoMedium}" Grid.Row="5" Content="UpdateTime"></Label>
+                    <TextBox Grid.Row="0" Tag="DamageInMoney" Text="{Binding DamageInMoney, Mode=TwoWay}" Grid.Column="1" ></TextBox>
+                    <TextBox Grid.Row="1" Tag="DamageInCropVolume" Text="{Binding DamageInCropVolume, Mode=TwoWay}" Grid.Column="1" ></TextBox>
+                    <TextBox Grid.Row="2" Tag="DamageInPercentage" Text="{Binding DamageInPercentage, Mode=TwoWay}" Grid.Column="1" ></TextBox>
+                    <TextBox Grid.Row="3" Tag="AdditionalNotes" Text="{Binding AdditionalNotes, Mode=TwoWay}" Grid.Column="1" ></TextBox>
+                    <DatePicker Grid.Row="4" Tag="RegistrationCertificateNumber" Text="{Binding CreateTime, Mode=TwoWay}" Grid.Column="1" ></DatePicker>
+                    <DatePicker Grid.Row="5" Tag="EstablishedYear" Text="{Binding UpdateTime, Mode=TwoWay}" Grid.Column="1" ></DatePicker>
+                    <!--Add/Save buttons-->
+                    <Grid Grid.Row="6" Grid.ColumnSpan="2" Margin="0 20 15 0">
                         <Button 
                             FontSize="{StaticResource FontSizeLarge}"
                             Style="{StaticResource RegularButton}"
-                            Command="{Binding AddUserCommand}" 
+                            Command="{Binding DataContext.AddUserCommand,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=UserControl}}" 
                             Margin="20 0 0 20" 
-                            Grid.Row="4" 
+                            Visibility="{Binding DataContext.IsEditing,Converter={local:BooleanToVisibiltyValueConvertor},RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=UserControl}}"
                             Grid.ColumnSpan="2" 
                             Content="Add"/>
                         <Button 
                             Style="{StaticResource RegularButton}"
                             FontSize="{StaticResource FontSizeLarge}"
-                            Command="{Binding SaveEditsCommand}" 
+                            Command="{Binding DataContext.SaveEditsCommand,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=UserControl}}" 
                             Margin="20 0 0 20" 
-                            Grid.Row="4" 
                             Grid.ColumnSpan="2" 
                             Content="Save"
-                            Visibility="{Binding IsEditing, Converter={local:BooleanToVisibiltyValueConvertor},ConverterParameter=smth}"/>
+                            Visibility="{Binding DataContext.IsEditing,Converter={local:BooleanToVisibiltyValueConvertor},ConverterParameter=smth,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=UserControl}}"/>
                     </Grid>
 
                 </Grid>

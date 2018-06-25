@@ -36,7 +36,7 @@
                                         <Viewbox Grid.Column="0" Grid.ColumnSpan="3" Margin="5">
                                             <StackPanel>
                                                 <TextBlock Text="Name of the project" FontSize="{StaticResource FontSizeLarge}" Margin="0 0 0 -5">
-                                                        
+
                                                 </TextBlock>
                                                 <TextBlock FontSize="{StaticResource FontSizeSmall}" Text="By OurTeamNameIfNeeded" Foreground="{StaticResource MainTextBrush}" TextAlignment="Center"></TextBlock>
                                             </StackPanel>
@@ -79,91 +79,77 @@
                       GlassFrameThickness="0"/>
     </WindowChrome.WindowChrome>
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <Grid>
-            <Grid>
-                <ListBox ItemsSource="{Binding Users}" HorizontalContentAlignment="Stretch">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Border Height="70" >
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="2*"></ColumnDefinition>
-                                        <ColumnDefinition Width="4*"></ColumnDefinition>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
-                                    </Grid.ColumnDefinitions>
-                                    <!--User avatar-->
-                                    <Image Margin="5" Source="./Images/man.png"></Image>
-                                    <!--User info-->
-                                    <Grid Grid.Column="1" Margin="5">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition></RowDefinition>
-                                            <RowDefinition></RowDefinition>
-                                        </Grid.RowDefinitions>
-                                        <Label FontSize="{StaticResource FontSizeRegular}" Content="{Binding Username}"></Label>
-                                        <Label Grid.Row="1" FontSize="{StaticResource FontSizeSmall}" Opacity="0.7" Content="{Binding Email}"></Label>
-                                    </Grid>
-                                    <Grid Grid.Column="2">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition></RowDefinition>
-                                            <RowDefinition></RowDefinition>
-                                        </Grid.RowDefinitions>
-                                        <!--Icon button-->
-                                        <Button 
-                                            Style="{StaticResource CircleButton}"
-                                            Command="{Binding DataContext.EditUserCommand, 
-                                            RelativeSource={RelativeSource Mode=FindAncestor,
-                                            AncestorType=Window}}"
-                                            CommandParameter="{Binding}"
-                                            Content="&#xf303;"/>
-                                        <Button 
-                                            Style="{StaticResource CircleButton}"
-                                            Command="{Binding DataContext.DeleteUserCommand, 
-                                            RelativeSource={RelativeSource Mode=FindAncestor,
-                                            AncestorType=Window}}"
-                                            CommandParameter="{Binding}"
-                                            Grid.Row="1" 
-                                            Content="&#xf2ed;"/>
-                                    </Grid>
-                                </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"></RowDefinition>
-                        <RowDefinition Height="auto"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                        <ColumnDefinition Width="auto"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Button 
-                        Margin="20"
-                        Command="{Binding AddUserCommand}" 
-                        FontSize="50" 
-                        Style="{StaticResource CircleButton}" 
-                        Grid.Column="1" 
-                        Grid.Row="1" 
-                        Panel.ZIndex="1">+</Button>
-                </Grid>
-            </Grid>
-        </Grid>
-        <Grid Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-        </Grid>
-        <local:UserController Grid.ColumnSpan="2"
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <DockPanel>
+            <Menu DockPanel.Dock="Top" Height="20">
+                <MenuItem Header="_Data">
+                    <MenuItem Header="Add user" Command="{Binding AddUserCommand}"></MenuItem>
+                    <MenuItem Header="Add farm owner" Command="{Binding AddFarmOwnerCommand}"></MenuItem>
+                    <MenuItem Header="Add farm" Command="{Binding AddFarmCommand}"></MenuItem>
+                    <MenuItem Header="Add plant" Command="{Binding AddPlantCommand}"></MenuItem>
+                    <MenuItem Header="Add diease" Command="{Binding AddDiseaseCommand}"></MenuItem>
+                    <MenuItem Header="Add pest" Command="{Binding AddPestCommand}"></MenuItem>
+                    <MenuItem Header="Add geoposiotion" Command="{Binding AddFarmCommand}"></MenuItem>
+                    <MenuItem Header="Add soul reading" Command="{Binding AddSoilReadingsCommand}"></MenuItem>
+                    <MenuItem Header="Add contagion" Command="{Binding AddContagionCommand}"></MenuItem>
+                </MenuItem>
+            </Menu>
+        </DockPanel>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <local:UserController Grid.ColumnSpan="2"
                               DataContext="{Binding UserControllerViewModel}"
                               Panel.ZIndex="9"
                               local:AnimateSlideInFromBottomMarginProperty.Value="{Binding DataContext.IsUserControllerVisible,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Window}}"
                               />
-        <!--local:AnimateSlideInFromBottomMarginProperty.Value="{Binding IsUserControllerVisible}"-->
+            <local:FarmOwnerController Grid.ColumnSpan="2"
+                              DataContext="{Binding FarmOwnerControllerViewModel}"
+                              Panel.ZIndex="9"
+                              local:AnimateSlideInFromBottomMarginProperty.Value="{Binding DataContext.IsFarmOwnerControllerVisible,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Window}}"
+                              />
+            <local:FarmController Grid.ColumnSpan="2"
+                              DataContext="{Binding FarmControllerViewModel}"
+                              Panel.ZIndex="9"
+                              local:AnimateSlideInFromBottomMarginProperty.Value="{Binding DataContext.IsFarmControllerVisible,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Window}}"
+                              />
+            <local:PlantsController Grid.ColumnSpan="2"
+                                    DataContext="{Binding PlantControllerViewModel}"
+                                    Panel.ZIndex="9"
+                                    local:AnimateSlideInFromBottomMarginProperty.Value="{Binding DataContext.IsPlantControllerVisible,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Window}}"
+                />
+            <local:ContagionController Grid.ColumnSpan="2"
+                                    DataContext="{Binding ContagionControllerViewModel}"
+                                    Panel.ZIndex="9"
+                                    local:AnimateSlideInFromBottomMarginProperty.Value="{Binding DataContext.IsContagionControllerVisible,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Window}}"
+                />
+            <local:DiseaseController Grid.ColumnSpan="2"
+                                    DataContext="{Binding DiseaseControllerViewModel}"
+                                    Panel.ZIndex="9"
+                                    local:AnimateSlideInFromBottomMarginProperty.Value="{Binding DataContext.IsDiseaseControllerVisible,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Window}}"
+                />
+            <local:GeopositionController Grid.ColumnSpan="2"
+                                    DataContext="{Binding GeopositionControllerViewModel}"
+                                    Panel.ZIndex="9"
+                                    local:AnimateSlideInFromBottomMarginProperty.Value="{Binding DataContext.IsGeopositionControllerVisible,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Window}}"
+                />
+            <local:PestController Grid.ColumnSpan="2"
+                                    DataContext="{Binding PestControllerViewModel}"
+                                    Panel.ZIndex="9"
+                                    local:AnimateSlideInFromBottomMarginProperty.Value="{Binding DataContext.IsPestControllerVisible,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Window}}"
+                />
+            <local:SoilReadingsController Grid.ColumnSpan="2"
+                                    DataContext="{Binding SoilReadingsControllerViewModel}"
+                                    Panel.ZIndex="9"
+                                    local:AnimateSlideInFromBottomMarginProperty.Value="{Binding DataContext.IsSoilReadingsControllerVisible,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Window}}"
+                />
+            
+        </Grid>
     </Grid>
+
 </Window>

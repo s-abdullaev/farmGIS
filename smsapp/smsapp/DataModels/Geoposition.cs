@@ -1,6 +1,6 @@
 ﻿namespace smsapp
 {
-    public class Geopostion
+    public class Geoposition
     {
         /// <summary>
         /// ID
@@ -12,6 +12,10 @@
         /// </summary>
         public string Name { set; get; }
 
+        /// <summary>
+        /// Area
+        /// </summary>
+        public float Area { set; get; }
 
         /// <summary>
         /// Geodata

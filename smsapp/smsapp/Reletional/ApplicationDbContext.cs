@@ -11,9 +11,49 @@ namespace smsapp
         #region DbSets 
 
         /// <summary>
-        /// The client login credentials
+        /// Users table
         /// </summary>
-        public DbSet<User> Users { get; set; }
+        public DbSet<User> Users{ get; set; }
+
+        /// <summary>
+        /// Users table
+        /// </summary>
+        public DbSet<Contagion> Contagions { get; set; }
+
+        /// <summary>
+        /// Users table
+        /// </summary>
+        public DbSet<SoilReadings> SoilReadings { get; set; }
+
+        /// <summary>
+        /// Users table
+        /// </summary>
+        public DbSet<Geoposition> Geopositions { get; set; }
+
+        /// <summary>
+        /// Users table
+        /// </summary>
+        public DbSet<Disease> Diseases { get; set; }
+
+        /// <summary>
+        /// Users table
+        /// </summary>
+        public DbSet<Pest> Pests { get; set; }
+
+        /// <summary>
+        /// Farmers table
+        /// </summary>
+        public DbSet<FarmOwner> FarmOwners { set; get; }
+
+        /// <summary>
+        /// Farmers table
+        /// </summary>
+        public DbSet<Farm> Farms { set; get; }
+
+        /// <summary>
+        /// Plants table
+        /// </summary>
+        public DbSet<Plant> Plants { set; get; }
 
         #endregion
 
@@ -45,7 +85,8 @@ namespace smsapp
             //
             // Set Id as primary key
             modelBuilder.Entity<User>().HasKey(a => a.ID);
-            
+            modelBuilder.Entity<FarmOwner>().HasMany<Farm>();
+
             // TODO: Set up limits
             //modelBuilder.Entity<LoginCredentialsDataModel>().Property(a => a.FirstName).HasMaxLength(50);
         }

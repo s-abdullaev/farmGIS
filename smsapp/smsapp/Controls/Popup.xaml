@@ -10,8 +10,8 @@
         >
         <!--MessageView-->
         <Border 
-            DataContext="{Binding DataContext.PopupContent, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=local:UserController}}"
-            Visibility="{Binding DataContext.IsPopupVisible, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=local:UserController}, Converter={local:BooleanToVisibiltyValueConvertor},ConverterParameter=smth}"
+            DataContext="{Binding DataContext.PopupContent, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=UserControl}}"
+            Visibility="{Binding DataContext.IsPopupVisible, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=UserControl}, Converter={local:BooleanToVisibiltyValueConvertor},ConverterParameter=smth}"
             Panel.ZIndex="9"
             Background="{StaticResource TransparentBrush}"
             Margin="-10"
@@ -73,7 +73,7 @@
                         <Button 
                             Grid.Row="0" 
                             Visibility="{Binding IsWait,Converter={local:BooleanToVisibiltyValueConvertor}}"
-                            Command="{Binding DataContext.OkCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:UserController}}">
+                            Command="{Binding DataContext.OkCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}">
                             <Button.Style>
                                 <Style TargetType="Button">
                                     <Setter Property="Template">

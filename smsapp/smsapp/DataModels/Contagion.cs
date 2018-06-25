@@ -17,7 +17,7 @@ namespace smsapp
         /// <summary>
         /// Damage in money
         /// </summary>
-        public float DamageInMone { set; get; }
+        public float DamageInMoney { set; get; }
 
         /// <summary>
         /// Damaege in crop volume
@@ -27,7 +27,7 @@ namespace smsapp
         /// <summary>
         /// Damage in percentage
         /// </summary>
-        public float DamageInPercentafe { set; get; }
+        public float DamageInPercentage { set; get; }
 
         /// <summary>
         /// Additional notes

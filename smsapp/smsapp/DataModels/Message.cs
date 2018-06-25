@@ -15,6 +15,16 @@ namespace smsapp
         public string BroadCastID { set; get; }
 
         /// <summary>
+        /// Has reacted?
+        /// </summary>
+        public bool HasReacted { set; get; }
+
+        /// <summary>
+        /// Feedback
+        /// </summary>
+        public string Feedback { set; get; }
+
+        /// <summary>
         /// Farm owner id
         /// </summary>
         public string FarmOwnerID { set; get; }

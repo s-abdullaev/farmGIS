@@ -202,8 +202,32 @@
     <Compile Include="AttachedProperties\BaseAttachedProperty.cs" />
     <Compile Include="AttachedProperties\PanelChildMarginproperty.cs" />
     <Compile Include="AttachedProperties\PasswordBoxAttachedProperties.cs" />
+    <Compile Include="Controls\SoilReadingsController.xaml.cs">
+      <DependentUpon>SoilReadingsController.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PestController.xaml.cs">
+      <DependentUpon>PestController.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\GeopositionController.xaml.cs">
+      <DependentUpon>GeopositionController.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DiseaseController.xaml.cs">
+      <DependentUpon>DiseaseController.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ContagionController.xaml.cs">
+      <DependentUpon>ContagionController.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PlantsController.xaml.cs">
+      <DependentUpon>PlantsController.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Popup.xaml.cs">
       <DependentUpon>Popup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\FarmOwnerController.xaml.cs">
+      <DependentUpon>FarmOwnerController.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\FarmController.xaml.cs">
+      <DependentUpon>FarmController.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\UserController.xaml.cs">
       <DependentUpon>UserController.xaml</DependentUpon>
@@ -218,28 +242,69 @@
     <Compile Include="DataModels\Geoposition.cs" />
     <Compile Include="DataModels\Message.cs" />
     <Compile Include="DataModels\Pest.cs" />
+    <Compile Include="DataModels\Photo.cs" />
     <Compile Include="DataModels\Plant.cs" />
     <Compile Include="DataModels\SoilReadings.cs" />
     <Compile Include="DataModels\User.cs" />
     <Compile Include="DataTypes\PopupType.cs" />
     <Compile Include="Extensions\StoryboardHelpers.cs" />
     <Compile Include="IoC\IoC.cs" />
-    <Compile Include="Reletional\ClientDataStoreDbContext.cs" />
+    <Compile Include="Reletional\ApplicationDbContext.cs" />
     <Compile Include="Extensions\FrameworkConstructionExtensions.cs" />
     <Compile Include="Reletional\DataStore.cs" />
     <Compile Include="Reletional\IDataStore.cs" />
     <Compile Include="ValueConverters\BaseValueConverter.cs" />
     <Compile Include="ValueConverters\BooleanToVisibilityConverter.cs" />
     <Compile Include="ValueConverters\PopupTypeToBrushValueConvertor.cs" />
-    <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\Base\BaseViewModel.cs" />
+    <Compile Include="ViewModels\Forms\ContagionControllerViewModel.cs" />
+    <Compile Include="ViewModels\Forms\SoilReadingControllerViewModel.cs" />
+    <Compile Include="ViewModels\Forms\GeopositionControllerViewModel.cs" />
+    <Compile Include="ViewModels\Forms\PestControllerViewModel.cs" />
+    <Compile Include="ViewModels\Forms\DiseaseControllerViewModel.cs" />
+    <Compile Include="ViewModels\Forms\PlantsControllerViewModel.cs" />
+    <Compile Include="ViewModels\Forms\FarmControllerViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\PopupViewModel.cs" />
-    <Compile Include="ViewModels\RelayCommand.cs" />
-    <Compile Include="ViewModels\RelayParametrizedCommand.cs" />
-    <Compile Include="ViewModels\UserControllerViewModel.cs" />
+    <Compile Include="ViewModels\Base\RelayCommand.cs" />
+    <Compile Include="ViewModels\Base\RelayParametrizedCommand.cs" />
+    <Compile Include="ViewModels\Forms\FarmOwnerViewModel.cs" />
+    <Compile Include="ViewModels\Forms\UserControllerViewModel.cs" />
+    <Page Include="Controls\SoilReadingsController.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\PestController.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\GeopositionController.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\DiseaseController.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\ContagionController.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\PlantsController.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\Popup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\FarmOwnerController.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\FarmController.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\UserController.xaml">
       <SubType>Designer</SubType>
